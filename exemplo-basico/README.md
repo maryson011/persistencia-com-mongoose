@@ -1,0 +1,2 @@
+--> npm init -y
+--> npm i mongoose@7.3.1
