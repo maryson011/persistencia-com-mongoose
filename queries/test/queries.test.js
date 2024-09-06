@@ -6,6 +6,8 @@ const consultaIguadade = require("../src/consultaIguadade")
 const consultaArray = require("../src/consultaArray")
 const consultaOpLogicos = require("../src/consultaOpLogicos")
 const consultaPaginacao = require("../src/consultaPaginacao")
+const consultaUmEDeleta = require("../src/consultaUmEDeleta")
+const consultaUmEAltera = require("../src/consultaUmEAltera")
 
 beforeAll(async () => {
     await mongoose.connect(process.env.URLMONGOOSE)
@@ -39,6 +41,18 @@ test("Deve fazer uma consulta com paginação", async () => {
     const dados = await consultaPaginacao(Carro)
     console.log(dados)
     expect(dados).toBeInstanceOf(Array)
+})
+
+test("Deve executar findOneAndDelete", async () => {
+    const dados = await consultaUmEDeleta(Carro)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Object)
+})
+
+test("Deve executar findOneAndUpdate", async () => {
+    const dados = await consultaUmEAltera(Carro)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Object)
 })
 
 afterAll(async () => {
