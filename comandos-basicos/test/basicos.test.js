@@ -8,6 +8,8 @@ const consultarUm = require("../src/consultarUm")
 const consultarVarios = require("../src/consultarVarios")
 const deletarUm = require("../src/deletarUm")
 const deletarVarios = require("../src/deletarVarios")
+const alterarUm = require("../src/alterarUm")
+const alterarVarios = require("../src/alterarVarios")
 
 beforeAll(async () => {
     await mongoose.connect("mongodb+srv://mongoose:mongoose@cluster0.s1jex.mongodb.net/basicos")
@@ -59,6 +61,18 @@ test("Deve deletar varios usuarios", async () => {
     const dados = await deletarVarios(Usuario)
     console.log(dados)
     expect(dados.deletedCount).toBeGreaterThan(1)
+})
+
+test("Deve alterar um usuario", async () => {
+    const dados = await alterarUm(Usuario)
+    console.log(dados)
+    expect(dados.modifiedCount).toBe(1)
+})
+
+test("Deve alterar varios usuarios", async () => {
+    const dados = await alterarVarios(Usuario)
+    console.log(dados)
+    expect(dados.modifiedCount).toBe(1)
 })
 
 
