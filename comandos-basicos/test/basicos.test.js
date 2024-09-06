@@ -3,12 +3,10 @@ const Usuario = require("../src/models/Usuario")
 const criarColecao = require("../src/criarColecao")
 const deletarColecao = require("../src/deletarColecao")
 const inserirUm = require("../src/inserirUm")
+const inserirVarios = require("../src/inserirVarios")
 
 beforeAll(async () => {
-    await mongoose.connect("mongodb+srv://mongoose:mongoose@cluster0.s1jex.mongodb.net/basicos", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
+    await mongoose.connect("mongodb+srv://mongoose:mongoose@cluster0.s1jex.mongodb.net/basicos")
 })
 
 test("Deve criar uma coleção", async () => {
@@ -29,6 +27,12 @@ test("Deve inserir um documento", async () => {
     expect(dados).toBeInstanceOf(mongoose.Model)
 })
 
-afterAll(()=>{
-    mongoose.connection.destroy()
+test("Deve inserir varios documentos", async () => {
+    const dados = await inserirVarios(Usuario)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Array)
+})
+
+afterAll(async ()=>{
+    await mongoose.connection.destroy()
 })
