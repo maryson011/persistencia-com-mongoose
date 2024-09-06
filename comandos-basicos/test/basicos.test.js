@@ -4,6 +4,8 @@ const criarColecao = require("../src/criarColecao")
 const deletarColecao = require("../src/deletarColecao")
 const inserirUm = require("../src/inserirUm")
 const inserirVarios = require("../src/inserirVarios")
+const consultarUm = require("../src/consultarUm")
+const consultarVarios = require("../src/consultarVarios")
 
 beforeAll(async () => {
     await mongoose.connect("mongodb+srv://mongoose:mongoose@cluster0.s1jex.mongodb.net/basicos")
@@ -32,6 +34,19 @@ test("Deve inserir varios documentos", async () => {
     console.log(dados)
     expect(dados).toBeInstanceOf(Array)
 })
+
+test("Deve consultar um usuario", async () => {
+    const dados = await consultarUm(Usuario)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(mongoose.Model)
+})
+
+test("Deve consultar varios usuarios", async () => {
+    const dados = await consultarVarios(Usuario)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Array)
+})
+
 
 afterAll(async ()=>{
     await mongoose.connection.destroy()
