@@ -6,6 +6,8 @@ const inserirUm = require("../src/inserirUm")
 const inserirVarios = require("../src/inserirVarios")
 const consultarUm = require("../src/consultarUm")
 const consultarVarios = require("../src/consultarVarios")
+const deletarUm = require("../src/deletarUm")
+const deletarVarios = require("../src/deletarVarios")
 
 beforeAll(async () => {
     await mongoose.connect("mongodb+srv://mongoose:mongoose@cluster0.s1jex.mongodb.net/basicos")
@@ -45,6 +47,18 @@ test("Deve consultar varios usuarios", async () => {
     const dados = await consultarVarios(Usuario)
     console.log(dados)
     expect(dados).toBeInstanceOf(Array)
+})
+
+test("Deve deletar um usuario", async () => {
+    const dados = await deletarUm(Usuario)
+    console.log(dados)
+    expect(dados.deletedCount).toBe(1)
+})
+
+test("Deve deletar varios usuarios", async () => {
+    const dados = await deletarVarios(Usuario)
+    console.log(dados)
+    expect(dados.deletedCount).toBeGreaterThan(1)
 })
 
 
