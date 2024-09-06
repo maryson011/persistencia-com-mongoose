@@ -4,6 +4,7 @@ const Carro = require("../src/models/Carro")
 const iniciaBanco = require("../src/iniciaBanco")
 const consultaIguadade = require("../src/consultaIguadade")
 const consultaArray = require("../src/consultaArray")
+const consultaOpLogicos = require("../src/consultaOpLogicos")
 
 beforeAll(async () => {
     await mongoose.connect(process.env.URLMONGOOSE)
@@ -23,6 +24,12 @@ test("Deve fazer uma consulta verificando igualdade", async () => {
 
 test("Deve fazer uma consulta verificando um array", async () => {
     const dados = await consultaArray(Carro)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Array)
+})
+
+test("Deve fazer uma consulta com operadores lógicos", async () => {
+    const dados = await consultaOpLogicos(Carro)
     console.log(dados)
     expect(dados).toBeInstanceOf(Array)
 })
