@@ -8,6 +8,8 @@ const consultaOpLogicos = require("../src/consultaOpLogicos")
 const consultaPaginacao = require("../src/consultaPaginacao")
 const consultaUmEDeleta = require("../src/consultaUmEDeleta")
 const consultaUmEAltera = require("../src/consultaUmEAltera")
+const consultaPorIDEDeleta = require("../src/consultaPorIDEDeleta")
+const consultaPorIdEAltera = require("../src/consultaPorIdEAltera")
 
 beforeAll(async () => {
     await mongoose.connect(process.env.URLMONGOOSE)
@@ -51,6 +53,18 @@ test("Deve executar findOneAndDelete", async () => {
 
 test("Deve executar findOneAndUpdate", async () => {
     const dados = await consultaUmEAltera(Carro)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Object)
+})
+
+test("Deve executar findByIdAndDelete", async () => {
+    const dados = await consultaPorIDEDeleta(Carro)
+    console.log(dados)
+    expect(dados).toBeInstanceOf(Object)
+})
+
+test("Deve executar findByIdAndUpdate", async () => {
+    const dados = await consultaPorIdEAltera(Carro)
     console.log(dados)
     expect(dados).toBeInstanceOf(Object)
 })
